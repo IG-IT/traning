@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Min träning</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 16px;
+    }
+    .card {
+      background: #fff;
+      padding: 16px;
+      border-radius: 14px;
+      margin-bottom: 12px;
+    }
+    input[type="checkbox"] {
+      transform: scale(1.4);
+      margin-right: 8px;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 100%;
+      padding: 14px;
+      border-radius: 14px;
+      border: none;
+      background: #111;
+      color: #fff;
+      font-size: 16px;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🏋️ Min träning</h1>
+<p>Pass A – Full body (30 min)</p>
+
+<div class="card">
+  <label>
+    <input type="checkbox"> Benpress (3×12)
+  </label>
+  <input type="number" placeholder="Vikt idag (kg)">
+</div>
+
+<div class="card">
+  <label>
+    <input type="checkbox"> Latsdrag (3×12)
+  </label>
+  <input type="number" placeholder="Vikt idag (kg)">
+</div>
+
+<div class="card">
+  <label>
+    <input type="checkbox"> Hantelpress (3×10)
+  </label>
+  <input type="number" placeholder="Vikt idag (kg/hand)">
+</div>
+
+<button>Spara (lokalt)</button>
+
+<p style="opacity:.6;font-size:14px;">
+  ✔ Funkar på mobilen<br>
+  ✔ Din personliga träningssida
+</p>
+
+</body>
+</html>
