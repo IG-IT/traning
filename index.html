@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>План тренировок для новичка</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>План тренировок + Лог (Offline)</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#2e6070">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600&display=swap");
 
@@ -19,11 +25,10 @@
       --card: #fffdf7;
       --border: rgba(31, 31, 27, 0.08);
       --shadow: 0 18px 40px rgba(46, 36, 23, 0.12);
+      --danger: #b23a2f;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -33,74 +38,35 @@
       line-height: 1.6;
     }
 
-    body::before,
-    body::after {
-      content: "";
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(0);
-      opacity: 0.45;
-      z-index: 0;
-    }
-
-    body::before {
-      width: 360px;
-      height: 360px;
-      background: radial-gradient(circle, rgba(247, 178, 103, 0.7), transparent 65%);
-      top: -120px;
-      right: -80px;
-    }
-
-    body::after {
-      width: 420px;
-      height: 420px;
-      background: radial-gradient(circle, rgba(79, 122, 98, 0.35), transparent 70%);
-      bottom: -180px;
-      left: -120px;
-    }
-
     main {
       position: relative;
-      z-index: 1;
       max-width: 980px;
       margin: 0 auto;
-      padding: 40px 20px 60px;
+      padding: 32px 16px 60px;
     }
 
     h1, h2, h3 {
       font-family: "Fraunces", "Times New Roman", serif;
+      margin: 0 0 12px;
       letter-spacing: 0.2px;
-      margin: 0 0 12px;
     }
 
-    h1 {
-      font-size: clamp(2.2rem, 3vw, 3rem);
-    }
+    h1 { font-size: clamp(2.1rem, 3vw, 3rem); }
+    h2 { font-size: clamp(1.35rem, 2.1vw, 2rem); }
+    h3 { font-size: 1.15rem; }
 
-    h2 {
-      font-size: clamp(1.4rem, 2.1vw, 2rem);
-    }
-
-    h3 {
-      font-size: 1.2rem;
-    }
-
-    p {
-      margin: 0 0 12px;
-      color: var(--muted);
-    }
+    p { margin: 0 0 12px; color: var(--muted); }
 
     .hero {
       display: grid;
-      gap: 20px;
+      gap: 16px;
       grid-template-columns: 1.2fr 0.8fr;
       align-items: center;
       background: var(--card);
-      padding: 26px 28px;
+      padding: 22px;
       border-radius: 22px;
       box-shadow: var(--shadow);
       border: 1px solid var(--border);
-      animation: fadeUp 0.7s ease both;
     }
 
     .hero-badges {
@@ -122,40 +88,25 @@
     .hero-card {
       background: linear-gradient(135deg, #fef6ec, #e9f2ee);
       border-radius: 18px;
-      padding: 18px;
+      padding: 16px;
       border: 1px dashed rgba(46, 96, 112, 0.25);
       color: var(--ocean);
-      font-weight: 600;
+      font-weight: 700;
     }
-
-    .hero-card span {
-      display: block;
-      font-size: 0.95rem;
-      color: #2e6070;
-      opacity: 0.75;
-      margin-top: 6px;
-      font-weight: 500;
-    }
+    .hero-card span { display:block; font-weight: 500; opacity:.8; margin-top:6px; }
 
     .section {
-      margin-top: 28px;
-      padding: 22px 24px;
+      margin-top: 18px;
+      padding: 18px;
       border-radius: 18px;
       background: var(--card);
       box-shadow: 0 12px 28px rgba(46, 36, 23, 0.08);
       border: 1px solid var(--border);
-      animation: fadeUp 0.65s ease both;
     }
-
-    .section[data-delay="1"] { animation-delay: 0.1s; }
-    .section[data-delay="2"] { animation-delay: 0.2s; }
-    .section[data-delay="3"] { animation-delay: 0.3s; }
-    .section[data-delay="4"] { animation-delay: 0.4s; }
-    .section[data-delay="5"] { animation-delay: 0.5s; }
 
     .grid-3 {
       display: grid;
-      gap: 16px;
+      gap: 12px;
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
@@ -165,201 +116,166 @@
       padding: 14px;
       border: 1px solid var(--border);
     }
-
-    .pill strong {
-      display: block;
-      color: var(--ink);
-      margin-bottom: 6px;
-      font-weight: 600;
-    }
+    .pill strong { display:block; margin-bottom: 6px; }
 
     .exercise-grid {
       display: grid;
-      gap: 18px;
+      gap: 16px;
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .exercise-card {
       background: #fffaf2;
       border-radius: 18px;
-      padding: 18px;
+      padding: 16px;
       border: 1px solid rgba(79, 122, 98, 0.12);
     }
 
     .exercise-head {
-      display: flex;
-      align-items: center;
+      display:flex;
+      align-items:center;
       justify-content: space-between;
-      gap: 12px;
-    }
-
-    .info-wrap {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-    }
-
-    .info-btn {
-      border: 1px solid rgba(46, 96, 112, 0.3);
-      background: #f0f7f4;
-      color: var(--ocean);
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .info-btn:focus-visible {
-      outline: 2px solid var(--ocean);
-      outline-offset: 2px;
-    }
-
-    .tooltip {
-      position: absolute;
-      right: 0;
-      top: 36px;
-      min-width: 220px;
-      background: #fffdf7;
-      border: 1px solid rgba(46, 96, 112, 0.2);
-      color: var(--muted);
-      padding: 10px 12px;
-      border-radius: 10px;
-      box-shadow: 0 10px 24px rgba(46, 36, 23, 0.12);
-      opacity: 0;
-      transform: translateY(-6px);
-      pointer-events: none;
-      transition: opacity 0.2s ease, transform 0.2s ease;
-      z-index: 2;
-    }
-
-    .info-wrap:hover .tooltip,
-    .info-wrap:focus-within .tooltip {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .exercise-card ul {
-      margin: 8px 0 0;
-      padding-left: 20px;
-      color: var(--muted);
+      gap: 10px;
     }
 
     .exercise-img {
       width: 100%;
+      max-width: 520px;
+      height: auto;
       border-radius: 14px;
-      margin: 10px 0 8px;
+      margin: 10px auto 8px;
+      display: block;
       box-shadow: 0 10px 18px rgba(31, 31, 27, 0.12);
     }
 
+    @media (max-width: 420px) {
+      .exercise-img { max-width: 340px; }
+    }
+
     .note {
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       color: var(--muted);
-      margin: 0;
+      margin: 0 0 10px;
     }
 
-    table {
+    /* Inputs */
+    .log-row {
+      display: grid;
+      grid-template-columns: 1fr 120px 120px;
+      gap: 10px;
+      align-items: center;
+      padding: 10px 0;
+      border-top: 1px solid rgba(31, 31, 27, 0.08);
+    }
+    .log-row:first-child { border-top: 0; padding-top: 0; }
+    .log-row label { font-weight: 700; color: var(--ink); }
+    .log-row input {
       width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-      font-size: 0.95rem;
-    }
-
-    th, td {
-      text-align: left;
-      padding: 10px 8px;
-      border-bottom: 1px solid rgba(31, 31, 27, 0.08);
-    }
-
-    th {
-      font-weight: 600;
-      color: var(--ocean);
-    }
-
-    .callout {
-      background: #f0f7f4;
-      border-left: 4px solid var(--leaf);
-      padding: 12px 16px;
+      padding: 10px 10px;
       border-radius: 12px;
-      color: var(--ink);
+      border: 1px solid rgba(31,31,27,0.18);
+      background: #fffdf7;
+      font: inherit;
     }
+    .log-row small { display:block; color: var(--muted); font-weight: 600; }
+
+    .btn-row {
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .btn {
+      border: 1px solid rgba(46, 96, 112, 0.25);
+      background: #fffaf2;
+      color: var(--ocean);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .btn.primary {
+      background: #111;
+      color: #fff;
+      border-color: #111;
+    }
+    .btn.danger {
+      border-color: rgba(178,58,47,.35);
+      color: var(--danger);
+      background: #fff3f2;
+    }
+
+    .kpi {
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .kpi .pill { flex:1; min-width: 220px; }
+
+    .history {
+      display:grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .history-item {
+      border: 1px solid rgba(31,31,27,0.10);
+      border-radius: 14px;
+      padding: 12px;
+      background: #fffdf7;
+      cursor: pointer;
+    }
+    .history-item strong { display:block; }
+    .history-item span { color: var(--muted); font-weight: 600; display:block; margin-top: 4px; }
+    .history-preview { margin-top: 6px; color: var(--muted); font-weight: 700; font-size: .92rem; }
 
     .footer {
-      margin-top: 28px;
+      margin-top: 20px;
       text-align: center;
       color: var(--muted);
       font-size: 0.9rem;
     }
 
-    .meta-row {
-      display: flex;
+    .inline-row {
+      display:flex;
+      gap:12px;
       flex-wrap: wrap;
-      gap: 12px;
-      justify-content: center;
-      margin-top: 18px;
+      align-items:center;
+      margin-top: 12px;
     }
 
-    .att-btn {
-      border: 1px solid rgba(46, 96, 112, 0.25);
-      background: #fffaf2;
-      color: var(--ocean);
-      padding: 8px 14px;
-      border-radius: 999px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .gallery {
-      display: grid;
-      gap: 12px;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      margin-top: 16px;
-    }
-
-    .gallery img {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-      border-radius: 12px;
-      border: 1px solid rgba(31, 31, 27, 0.08);
-      box-shadow: 0 8px 16px rgba(31, 31, 27, 0.1);
-    }
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(12px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .mini-input {
+      padding:10px;
+      border-radius:12px;
+      border:1px solid rgba(31,31,27,.18);
+      background:#fffdf7;
+      font: inherit;
+      width: 130px;
     }
 
     @media (max-width: 900px) {
-      .hero {
-        grid-template-columns: 1fr;
-      }
-      .grid-3 {
-        grid-template-columns: 1fr;
-      }
-      .exercise-grid {
-        grid-template-columns: 1fr;
-      }
+      .hero { grid-template-columns: 1fr; }
+      .grid-3 { grid-template-columns: 1fr; }
+      .exercise-grid { grid-template-columns: 1fr; }
+      .log-row { grid-template-columns: 1fr 1fr; }
+      .log-row label { grid-column: 1 / -1; }
+      .mini-input { width: 100%; max-width: 220px; }
     }
   </style>
 </head>
+
 <body>
   <main>
     <section class="hero">
       <div>
-        <h1>План тренировок для новичка</h1>
-        <p>Без перегруза, безопасно и понятно: фулл-бади тренировки через день, ~30 минут, чтобы привыкнуть к залу и укрепить базу.</p>
-        <div class="hero-badges">
-          <div class="chip">Формат: Full Body</div>
-          <div class="chip">Длительность: ~30 мин</div>
-          <div class="chip">Частота: через день</div>
+        <h1>План + Лог тренировок (Offline)</h1>
+        <p>Фулл-бади через день, ~30 минут. Лог сохраняется на телефоне (IndexedDB), работает без интернета.</p>
+        <div class="hero-badges" id="heroBadges">
+          <div class="chip">Full Body</div>
+          <div class="chip">~30 мин</div>
+          <div class="chip">Offline</div>
+          <div class="chip" id="chipProfile">Рост 180 / Вес 76</div>
         </div>
       </div>
       <div class="hero-card">
@@ -368,240 +284,161 @@
       </div>
     </section>
 
-    <section class="section" data-delay="1">
-      <h2>Структура тренировки (30 минут)</h2>
-      <div class="grid-3">
-        <div class="pill">
-          <strong>5 минут</strong>
-          Разминка на кардио + суставная мобилизация.
+    <section class="section">
+      <h2>👤 Профиль</h2>
+      <p class="note">Сохраняется на устройстве (localStorage).</p>
+      <div class="inline-row">
+        <label style="font-weight:900;">Рост (см)</label>
+        <input class="mini-input" id="profileHeight" inputmode="numeric" placeholder="180">
+        <label style="font-weight:900;">Вес (кг)</label>
+        <input class="mini-input" id="profileWeight" inputmode="numeric" placeholder="76">
+        <button class="btn" id="saveProfile" type="button">💾 Сохранить</button>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>📌 Статус</h2>
+      <p class="note">Отмечай веса/повторы → “Сохранить тренировку”. Следующий раз всё подставится автоматически.</p>
+
+      <div class="kpi">
+        <div class="pill"><strong>Тренировок на этой неделе</strong><div id="kpiWeek">0</div></div>
+        <div class="pill"><strong>Streak (≤48ч между тренировками)</strong><div id="kpiStreak">0</div></div>
+        <div class="pill"><strong>Жим ногами: +кг за 30 дней</strong><div id="kpiLegpress30">0</div></div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn primary" id="saveWorkout" type="button">✅ Сохранить тренировку</button>
+        <button class="btn" id="clearToday" type="button">🔁 Очистить поля</button>
+        <button class="btn" id="exportJson" type="button">📤 Export JSON</button>
+        <button class="btn" id="exportCsv" type="button">📤 Export CSV</button>
+        <button class="btn danger" id="importJsonBtn" type="button">📥 Import JSON</button>
+        <input id="importJsonFile" type="file" accept="application/json" style="display:none;">
+      </div>
+
+      <div class="inline-row">
+        <label style="font-weight:900;">Дата:</label>
+        <input id="workoutDate" type="date" class="mini-input" style="max-width:220px;">
+        <span id="statusMsg" style="color:var(--muted); font-weight:800;"></span>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>✍️ Лог: веса + повторы</h2>
+      <p class="note">Вводи: <b>кг</b> и <b>повторы</b>. Подсказка показывает последнее значение.</p>
+      <div class="btn-row" style="margin-top:8px;">
+        <button class="btn" id="openGallery" type="button">🖼 Галерея техники</button>
+      </div>
+
+      <div id="logList">
+        <div class="log-row">
+          <label>Жим ногами (Leg Press) <small id="hint-legpress"></small></label>
+          <input inputmode="numeric" placeholder="кг" data-ex="legpress" data-field="kg">
+          <input inputmode="numeric" placeholder="reps" data-ex="legpress" data-field="reps">
         </div>
-        <div class="pill">
-          <strong>20 минут</strong>
-          Силовая часть: ноги, спина, грудь, руки.
+
+        <div class="log-row">
+          <label>Присед с гантелью (Goblet) <small id="hint-goblet"></small></label>
+          <input inputmode="numeric" placeholder="кг" data-ex="goblet" data-field="kg">
+          <input inputmode="numeric" placeholder="reps" data-ex="goblet" data-field="reps">
         </div>
-        <div class="pill">
-          <strong>5 минут</strong>
-          Пресс + лёгкая растяжка.
+
+        <div class="log-row">
+          <label>Тяга верхнего блока (Lat Pulldown) <small id="hint-latpulldown"></small></label>
+          <input inputmode="numeric" placeholder="кг" data-ex="latpulldown" data-field="kg">
+          <input inputmode="numeric" placeholder="reps" data-ex="latpulldown" data-field="reps">
+        </div>
+
+        <div class="log-row">
+          <label>Гиперэкстензия (Hyperextension) <small id="hint-hyper"></small></label>
+          <input inputmode="numeric" placeholder="кг" data-ex="hyper" data-field="kg">
+          <input inputmode="numeric" placeholder="reps" data-ex="hyper" data-field="reps">
+        </div>
+
+        <div class="log-row">
+          <label>Жим гантелей лёжа (DB Bench) <small id="hint-dbbench"></small></label>
+          <input inputmode="numeric" placeholder="кг/hand" data-ex="dbbench" data-field="kg">
+          <input inputmode="numeric" placeholder="reps" data-ex="dbbench" data-field="reps">
+        </div>
+
+        <div class="log-row">
+          <label>Отжимания (Push-ups) <small id="hint-pushups"></small></label>
+          <input inputmode="numeric" placeholder="доп.кг (0)" data-ex="pushups" data-field="kg">
+          <input inputmode="numeric" placeholder="reps" data-ex="pushups" data-field="reps">
+        </div>
+
+        <div class="log-row">
+          <label>Бицепс (DB Curl) <small id="hint-biceps"></small></label>
+          <input inputmode="numeric" placeholder="кг" data-ex="biceps" data-field="kg">
+          <input inputmode="numeric" placeholder="reps" data-ex="biceps" data-field="reps">
+        </div>
+
+        <div class="log-row">
+          <label>Трицепс (Pushdown) <small id="hint-triceps"></small></label>
+          <input inputmode="numeric" placeholder="кг" data-ex="triceps" data-field="kg">
+          <input inputmode="numeric" placeholder="reps" data-ex="triceps" data-field="reps">
+        </div>
+
+        <div class="log-row">
+          <label>Скручивания (Crunch) <small id="hint-crunch"></small></label>
+          <input inputmode="numeric" placeholder="кг (0)" data-ex="crunch" data-field="kg">
+          <input inputmode="numeric" placeholder="reps" data-ex="crunch" data-field="reps">
+        </div>
+
+        <div class="log-row">
+          <label>Планка (Plank) <small id="hint-plank"></small></label>
+          <input inputmode="numeric" placeholder="сек" data-ex="plank" data-field="kg">
+          <input inputmode="numeric" placeholder="sets" data-ex="plank" data-field="reps">
         </div>
       </div>
     </section>
 
-    <section class="section" data-delay="2">
-      <h2>Разминка (5 минут)</h2>
-      <div class="grid-3">
-        <div class="pill">
-          <strong>Кардио</strong>
-          Дорожка или вело — 3 минуты.
-        </div>
-        <div class="pill">
-          <strong>Суставы</strong>
-          Плечи, руки, таз, колени — 2 минуты.
-        </div>
-        <div class="pill">
-          <strong>Темп</strong>
-          Движения плавные, без рывков.
-        </div>
-      </div>
-    </section>
+    <section class="section" id="techGallery">
+      <h2>🖼 Техника (быстро посмотреть)</h2>
+      <p class="note">Bilder från din <b>images/</b>-mapp.</p>
 
-    <section class="section" data-delay="3">
-      <h2>Основная тренировка (20 минут)</h2>
       <div class="exercise-grid">
         <div class="exercise-card">
-          <div class="exercise-head">
-            <h3>🦵 Ноги</h3>
-            <div class="info-wrap">
-              <button class="info-btn" type="button" aria-label="Подсказка по технике">i</button>
-              <div class="tooltip">Следи за стабильной спиной, колени не заваливай внутрь, опускайся контролируемо.</div>
-            </div>
-          </div>
-          <img class="exercise-img" src="images/OIP1.jpg" alt="Жим ногами — техника">
-          <p class="note">Стопы на платформе, спина прижата, движение плавное.</p>
-          <ul>
-            <li>Жим ногами — 3×12</li>
-            <li>Приседания с гантелями — 3×10</li>
-          </ul>
+          <div class="exercise-head"><h3>🦵 Жим ногами</h3></div>
+          <img class="exercise-img" src="images/OIP.jpg" alt="Leg press">
+          <img class="exercise-img" src="images/OIP1.jpg" alt="Leg press form examples">
+          <p class="note">Спина прижата, колени не заваливай внутрь.</p>
         </div>
+
         <div class="exercise-card">
-          <div class="exercise-head">
-            <h3>🧠 Спина</h3>
-            <div class="info-wrap">
-              <button class="info-btn" type="button" aria-label="Подсказка по технике">i</button>
-              <div class="tooltip">Тяни лопатками вниз, корпус стабилен, не раскачивайся.</div>
-            </div>
-          </div>
-          <img class="exercise-img" src="images/1380_systemrichrich_filesrich_files000003564largejs-lat-pulldown-master-class-start-stop-graphic-1.jpg" alt="Тяга верхнего блока — техника">
-          <p class="note">Тяни к верхней части груди, без раскачки.</p>
-          <ul>
-            <li>Тяга верхнего блока — 3×12</li>
-            <li>Гиперэкстензия — 2×12</li>
-          </ul>
+          <div class="exercise-head"><h3>🧠 Lat Pulldown</h3></div>
+          <img class="exercise-img" src="images/latzug.webp" alt="Lat pulldown">
+          <p class="note">Тяни к груди, не раскачивайся.</p>
         </div>
+
         <div class="exercise-card">
-          <div class="exercise-head">
-            <h3>🧍‍♂️ Грудь</h3>
-            <div class="info-wrap">
-              <button class="info-btn" type="button" aria-label="Подсказка по технике">i</button>
-              <div class="tooltip">Лопатки сведены, локти под 45 градусов, гантели двигаются ровно.</div>
-            </div>
-          </div>
-          <img class="exercise-img" src="images/Dumbbell-Bench-Press_Using-Too-Heavy-Weights.jpg" alt="Жим гантелей лёжа — техника">
-          <p class="note">Лопатки сведены, локти под контролем.</p>
-          <ul>
-            <li>Жим гантелей лёжа — 3×10</li>
-            <li>Отжимания — 2×максимум</li>
-          </ul>
+          <div class="exercise-head"><h3>🧍‍♂️ DB Bench</h3></div>
+          <img class="exercise-img" src="images/Dumbbell-Bench-Press_Using-Too-Heavy-Weights.jpg" alt="DB bench">
+          <p class="note">Лопатки сведены, контроль движения.</p>
         </div>
+
         <div class="exercise-card">
-          <div class="exercise-head">
-            <h3>💪 Руки</h3>
-            <div class="info-wrap">
-              <button class="info-btn" type="button" aria-label="Подсказка по технике">i</button>
-              <div class="tooltip">Локти прижаты к корпусу, подъем без раскачки, полная амплитуда.</div>
-            </div>
-          </div>
-          <img class="exercise-img" src="images/bicep-curls-1655286150.avif" alt="Бицепс (гантели) — техника">
+          <div class="exercise-head"><h3>💪 Biceps curl</h3></div>
+          <img class="exercise-img" src="images/bicep-curls-1655286150.avif" alt="Biceps curl">
           <p class="note">Локти рядом с корпусом, без рывков.</p>
-          <ul>
-            <li>Бицепс (гантели) — 2×12</li>
-            <li>Трицепс (блок) — 2×12</li>
-          </ul>
         </div>
-      </div>
-    </section>
 
-    <section class="section" data-delay="4">
-      <h2>Пресс + заминка (5 минут)</h2>
-      <div class="grid-3">
-        <div class="pill">
-          <strong>Скручивания</strong>
-          2×15, медленно, с контролем.
-        </div>
-        <div class="pill">
-          <strong>Планка</strong>
-          2×30–40 сек, корпус ровный.
-        </div>
-        <div class="pill">
-          <strong>Растяжка</strong>
-          Ноги, спина, руки — 2–3 минуты.
-        </div>
-      </div>
-      <img class="exercise-img" src="images/how_to_plank.webp" alt="Планка — техника">
-      <p class="note">Корпус прямой, ягодицы не провисают, шея нейтрально.</p>
-    </section>
-
-    <section class="section" data-delay="5">
-      <h2>Рекомендуемые веса (рост 180 см / вес 76 кг)</h2>
-      <div class="callout">
-        Вес должен позволять сделать 10–12 повторений, где последние 2 повтора тяжёлые, но техника не ломается.
-      </div>
-      <table>
-        <tr>
-          <th>Упражнение</th>
-          <th>Стартовый вес</th>
-        </tr>
-        <tr>
-          <td>Жим ногами</td>
-          <td>50–70 кг (старт 50 кг)</td>
-        </tr>
-        <tr>
-          <td>Присед с гантелями</td>
-          <td>8–10 кг (если тяжело — 6 кг)</td>
-        </tr>
-        <tr>
-          <td>Тяга верхнего блока</td>
-          <td>30–40 кг (старт 30 кг)</td>
-        </tr>
-        <tr>
-          <td>Жим гантелей лёжа</td>
-          <td>8–10 кг (старт 8 кг)</td>
-        </tr>
-        <tr>
-          <td>Бицепс (гантели)</td>
-          <td>6–8 кг</td>
-        </tr>
-        <tr>
-          <td>Трицепс (блок)</td>
-          <td>20–25 кг</td>
-        </tr>
-        <tr>
-          <td>Планка</td>
-          <td>30–40 сек</td>
-        </tr>
-      </table>
-      <div class="grid-3" style="margin-top: 16px;">
-        <div class="pill">
-          <strong>Прогрессия</strong>
-          Каждые 2–3 тренировки: +2,5 кг на тренажёрах.
-        </div>
-        <div class="pill">
-          <strong>Гантели</strong>
-          +1 кг только если все подходы чистые.
-        </div>
-        <div class="pill">
-          <strong>Важное</strong>
-          Если боль в суставах — сразу снижай вес.
+        <div class="exercise-card">
+          <div class="exercise-head"><h3>🧱 Plank</h3></div>
+          <img class="exercise-img" src="images/how_to_plank.webp" alt="Plank">
+          <p class="note">Корпус прямой, шея нейтрально.</p>
         </div>
       </div>
     </section>
 
     <section class="section">
-      <h2>Коротко про питание</h2>
-      <div class="grid-3">
-        <div class="pill">
-          <strong>Белок</strong>
-          110–140 г в день.
-        </div>
-        <div class="pill">
-          <strong>Вода</strong>
-          2–2,5 литра в день.
-        </div>
-        <div class="pill">
-          <strong>Режим</strong>
-          3–4 приёма пищи в день.
-        </div>
-      </div>
+      <h2>🧾 История тренировок</h2>
+      <p class="note">Нажми на запись → загрузится обратно в поля.</p>
+      <div id="historyList" class="history"></div>
     </section>
 
-    <section class="section">
-      <h2>Галерея упражнений</h2>
-      <p>Все изображения из папки <b>images</b> собраны здесь, чтобы можно было быстро свериться с техникой.</p>
-      <div class="gallery">
-        <img src="images/1380_systemrichrich_filesrich_files000003564largejs-lat-pulldown-master-class-start-stop-graphic-1.jpg" alt="Тяга верхнего блока">
-        <img src="images/1688722950296395104.jpg" alt="Тренировка">
-        <img src="images/236125131_w600_h600_giperekstenziya-gorizontalnaya-vs.jpg" alt="Гиперэкстензия">
-        <img src="images/250px-Bb_4_189.jpg" alt="Упражнение">
-        <img src="images/683ea0c007dbf_ChatGPT_Image_3_______._2025___.__10_04_05.png" alt="Схема тренировки">
-        <img src="images/8fe3e0f34d3083cba6fe73d62a783d7f_XL.jpg" alt="Упражнение">
-        <img src="images/Dumbbell-Bench-Press_Using-Too-Heavy-Weights.jpg" alt="Жим гантелей">
-        <img src="images/OIP.jpg" alt="Тренажер">
-        <img src="images/OIP1.jpg" alt="Жим ногами">
-        <img src="images/Otzhimaniya-na-brusyah.jpg" alt="Отжимания на брусьях">
-        <img src="images/Pravilrnaya-tekhnika-zhima-lezha-2.jpg" alt="Жим лежа">
-        <img src="images/a2d7gmpi8idajdybd4e1q6bbdk1xds8u.png" alt="Упражнение">
-        <img src="images/a35a7a3504ec0b1de2a817507ff7c.png" alt="Упражнение">
-        <img src="images/bicep-curls-1655286150.avif" alt="Сгибания на бицепс">
-        <img src="images/dk63lxn92dnpgd32y2g46uqv4863rw6w.jpg" alt="Упражнение">
-        <img src="images/f28bda651a332ece7256407764af48aa.jpg" alt="Упражнение">
-        <img src="images/how_to_plank.webp" alt="Планка">
-        <img src="images/image_iphone.jpg" alt="Тренировка">
-        <img src="images/latzug.webp" alt="Тяга верхнего блока">
-        <img src="images/male_1_middle.jpg" alt="Спортивная фигура">
-        <img src="images/male_2.png" alt="Спортивная фигура">
-        <img src="images/planka_01_skispeedRu.jpg" alt="Планка">
-        <img src="images/sgibaniya_ruk_s_gantelyami_stoya.jpg" alt="Сгибания с гантелями">
-        <img src="images/y1d3nzq0ji3bhhxuscp4y0v65m1t7a8zj.jpg" alt="Упражнение">
-        <img src="images/y1d3nzq0ji3bhhxuscp4y0v65mt7a8zj.jpg" alt="Упражнение">
-        <img src="images/yam4j7g03hgw553n79q6pxcnt1hp2g0l.png" alt="Упражнение">
-      </div>
-    </section>
-
-    <p class="footer">Эта страница — твой личный стартовый план. Если чувствуешь сильную усталость — сокращай одно упражнение.</p>
-    <div class="meta-row">
-      <button class="att-btn" type="button" aria-label="Атрибуция">
-        Сделано с помощью ИИ · Изображения из интернета
-      </button>
-    </div>
+    <p class="footer">💾 Всё хранится офлайн (IndexedDB). Для бэкапа используй Export JSON/CSV.</p>
   </main>
+
+  <script src="app.js"></script>
 </body>
 </html>
