@@ -1,76 +1,204 @@
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Min träning</title>
+  <title>Моя тренировка</title>
   <style>
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont;
       background: #f4f4f4;
       margin: 0;
       padding: 16px;
+      line-height: 1.5;
+    }
+    h1, h2, h3 {
+      margin-top: 24px;
     }
     .card {
       background: #fff;
       padding: 16px;
       border-radius: 14px;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
-    input[type="checkbox"] {
-      transform: scale(1.4);
-      margin-right: 8px;
+    .small {
+      opacity: .7;
+      font-size: 14px;
     }
-    input[type="number"] {
+    table {
       width: 100%;
-      padding: 10px;
-      margin-top: 6px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
+      border-collapse: collapse;
+      margin-top: 10px;
     }
-    button {
+    td, th {
+      border-bottom: 1px solid #eee;
+      padding: 8px 4px;
+      text-align: left;
+      font-size: 14px;
+    }
+    th {
+      opacity: .7;
+      font-weight: 600;
+    }
+    .exercise-img {
       width: 100%;
-      padding: 14px;
-      border-radius: 14px;
-      border: none;
-      background: #111;
-      color: #fff;
-      font-size: 16px;
-      margin-top: 12px;
+      height: auto;
+      border-radius: 12px;
+      margin: 10px 0 6px;
+      display: block;
+    }
+    .exercise-note {
+      margin: 0 0 10px;
     }
   </style>
 </head>
 <body>
 
-<h1>🏋️ Min träning</h1>
-<p>Pass A – Full body (30 min)</p>
+<h1>🏋️ План тренировок (новичок)</h1>
 
 <div class="card">
-  <label>
-    <input type="checkbox"> Benpress (3×12)
-  </label>
-  <input type="number" placeholder="Vikt idag (kg)">
+  <p>
+    Простой и безопасный план тренировок для новичка в тренажёрном зале.<br>
+    <b>Формат:</b> Full Body • <b>Длительность:</b> ~30 минут • <b>Частота:</b> через день
+  </p>
+
+  <p><b>Пример расписания:</b><br>
+    Пн – Ср – Пт – Вс – …
+  </p>
 </div>
 
 <div class="card">
-  <label>
-    <input type="checkbox"> Latsdrag (3×12)
-  </label>
-  <input type="number" placeholder="Vikt idag (kg)">
+  <h2>⏱ Структура тренировки</h2>
+  <ul>
+    <li>5 минут — разминка</li>
+    <li>20 минут — силовые упражнения</li>
+    <li>5 минут — пресс + заминка</li>
+  </ul>
 </div>
 
 <div class="card">
-  <label>
-    <input type="checkbox"> Hantelpress (3×10)
-  </label>
-  <input type="number" placeholder="Vikt idag (kg/hand)">
+  <h2>🔥 Разминка (5 минут)</h2>
+  <ul>
+    <li>Беговая дорожка / вело — 3 мин</li>
+    <li>Круговые движения: плечи, руки, таз, колени — 2 мин</li>
+  </ul>
 </div>
 
-<button>Spara (lokalt)</button>
+<div class="card">
+  <h2>💪 Основная тренировка</h2>
 
-<p style="opacity:.6;font-size:14px;">
-  ✔ Funkar på mobilen<br>
-  ✔ Din personliga träningssida
+  <h3>🦵 Ноги</h3>
+  <img class="exercise-img" src="images/leg-press.png" alt="Жим ногами — техника">
+  <p class="small exercise-note">Жим ногами: стопы на платформе, спина прижата, движение плавное.</p>
+  <ul>
+    <li>Жим ногами — 3×12</li>
+    <li>Приседания с гантелями — 3×10</li>
+  </ul>
+
+  <h3>🧠 Спина</h3>
+  <img class="exercise-img" src="images/lat-pulldown.png" alt="Тяга верхнего блока — техника">
+  <p class="small exercise-note">Тяга верхнего блока: тяни к верхней части груди, без раскачки.</p>
+  <ul>
+    <li>Тяга верхнего блока — 3×12</li>
+    <li>Гиперэкстензия — 2×12</li>
+  </ul>
+
+  <h3>🧍‍♂️ Грудь</h3>
+  <img class="exercise-img" src="images/db-bench.png" alt="Жим гантелей лёжа — техника">
+  <p class="small exercise-note">Жим гантелей: лопатки сведены, локти под контролем, не бросай вес.</p>
+  <ul>
+    <li>Жим гантелей лёжа — 3×10</li>
+    <li>Отжимания — 2×максимум</li>
+  </ul>
+
+  <h3>💪 Руки</h3>
+  <img class="exercise-img" src="images/biceps-curl.png" alt="Бицепс (гантели) — техника">
+  <p class="small exercise-note">Бицепс: локти рядом с корпусом, без рывков и раскачки.</p>
+  <ul>
+    <li>Бицепс (гантели) — 2×12</li>
+    <li>Трицепс (блок) — 2×12</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2>🧱 Пресс + заминка</h2>
+  <img class="exercise-img" src="images/plank.png" alt="Планка — техника">
+  <p class="small exercise-note">Планка: корпус прямой, ягодицы не провисают, шея нейтрально.</p>
+  <ul>
+    <li>Скручивания — 2×15</li>
+    <li>Планка — 2×30–40 сек</li>
+  </ul>
+  <p class="small">Лёгкая растяжка ног, спины и рук — 2–3 минуты</p>
+</div>
+
+<div class="card">
+  <h2>🎯 Рекомендуемые веса (рост 180 см / вес 70 кг)</h2>
+
+  <table>
+    <tr>
+      <th>Упражнение</th>
+      <th>Стартовый вес</th>
+    </tr>
+    <tr>
+      <td>Жим ногами</td>
+      <td>50–70 кг</td>
+    </tr>
+    <tr>
+      <td>Присед с гантелями</td>
+      <td>8–10 кг</td>
+    </tr>
+    <tr>
+      <td>Тяга верхнего блока</td>
+      <td>30–40 кг</td>
+    </tr>
+    <tr>
+      <td>Жим гантелей лёжа</td>
+      <td>8–10 кг</td>
+    </tr>
+    <tr>
+      <td>Бицепс</td>
+      <td>6–8 кг</td>
+    </tr>
+    <tr>
+      <td>Трицепс (блок)</td>
+      <td>20–25 кг</td>
+    </tr>
+    <tr>
+      <td>Планка</td>
+      <td>30–40 сек</td>
+    </tr>
+  </table>
+</div>
+
+<div class="card">
+  <h2>📈 Прогрессия</h2>
+  <ul>
+    <li>Каждые 2–3 тренировки: +2,5 кг на тренажёрах</li>
+    <li>+1 кг на гантелях</li>
+    <li>Только если все подходы чистые</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2>⚠️ Важно</h2>
+  <ul>
+    <li>Крепатура в первые 1–2 недели — нормально</li>
+    <li>Боль в суставах — сразу уменьшай вес</li>
+    <li>Сон и питание критичны</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2>🍽 Питание (коротко)</h2>
+  <p>
+    Белок: <b>110–140 г / день</b><br>
+    Вода: <b>2–2,5 л</b><br>
+    Приёмы пищи: <b>3–4 в день</b>
+  </p>
+</div>
+
+<p class="small">
+  ✔ Эта страница — твой личный тренировочный план<br>
 </p>
 
 </body>
